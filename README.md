@@ -1,79 +1,97 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Fluyo Test
 
-# Getting Started
+## Overview
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+This is a mobile language learning app that helps users learn new languages by filling in missing words in sentences.
 
-## Step 1: Start the Metro Server
+## Tech Stack
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+- Frontend: React Native
+- Styling: React Native StyleSheet
+- State Management: React Hooks (useState, useEffect)
+- Data Management: Props and Local State
 
-To start Metro, run the following command from the _root_ of your React Native project:
+## Backend (Not Implemented)
 
-```bash
-# using npm
-npm start
+Due to time constraints (2 hours), a backend using Firebase was not set up. If more time were available, a Firebase backend could have been used to store and retrieve data for the app. In this hypothetical setup, GET queries would have been used to fetch data from similar data structures as those used in the `LanguageData` folder.
 
-# OR using Yarn
-yarn start
+The `LanguageData` folder contains data structures like:
+
+```typescript
+interface Sentence {
+  englishSentence: string;
+  germanSentence: string;
+  wordOptions: string[];
+  correctAnswer: string;
+  translations: Record<string, string>;
+}
+
+export const sentences: Sentence[] = [
+{
+    englishSentence: "The house is small",
+    germanSentence: "Das Haus ist klein",
+    wordOptions: ["groß", "klein", "schön", "Haus"],
+    correctAnswer: "Haus",
+    translations: {
+      groß: 'big',
+      klein: 'small',
+      schön: 'beautiful',
+      Haus: 'house',
+      Das: 'The',
+      ist: 'is',
+    },
+  },];
 ```
 
-## Step 2: Start your Application
+In a Firebase-based backend, similar data structures could have been stored in Firestore collections or Realtime Database nodes, and GET queries would have been used to retrieve this data for the app's language learning exercises.
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
+## Getting Started
 
-### For Android
+To run this app locally, follow these steps:
 
-```bash
-# using npm
-npm run android
+1. Clone the repository:
 
-# OR using Yarn
-yarn android
-```
+   ```bash
+   git clone https://github.com/your-username/your-language-learning-app.git
+   ```
 
-### For iOS
+2. Navigate to the project directory:
 
-```bash
-# using npm
-npm run ios
+   ```bash
+   cd your-language-learning-app
+   ```
 
-# OR using Yarn
-yarn ios
-```
+3. Install dependencies:
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
+   ```bash
+   npm install
+   ```
 
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
+4. Start the development server:
 
-## Step 3: Modifying your App
+   ```bash
+   npm start
+   ```
 
-Now that you have successfully run the app, let's modify it.
+5. Open the app on your Android or iOS device using the respective development tools:
 
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
+   For Android:
 
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
+   ```bash
+   # using npm
+   npm run android
 
-## Congratulations! :tada:
+   # OR using Yarn
+   yarn android
+   ```
 
-You've successfully run and modified your React Native App. :partying_face:
+   For iOS:
 
-### Now what?
+   ```bash
+   # using npm
+   npm run ios
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
+   # OR using Yarn
+   yarn ios
+   ```
 
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
