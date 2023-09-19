@@ -1,5 +1,9 @@
 # Fluyo Test
 
+
+https://github.com/taylorhh5/FluyoTest/assets/52665999/6db2c56c-f9f3-464f-9039-d5a8f5dd14ce
+
+
 ## Overview
 
 This is a mobile language learning app that helps users learn new languages by filling in missing words in sentences.
