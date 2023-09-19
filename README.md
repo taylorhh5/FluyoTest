@@ -1,8 +1,6 @@
 # Fluyo Test
 
-
 https://github.com/taylorhh5/FluyoTest/assets/52665999/6db2c56c-f9f3-464f-9039-d5a8f5dd14ce
-
 
 ## Overview
 
@@ -56,13 +54,13 @@ To run this app locally, follow these steps:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/your-language-learning-app.git
+  git clone https://github.com/taylorhh5/FluyoTest.git
    ```
 
 2. Navigate to the project directory:
 
    ```bash
-   cd your-language-learning-app
+   cd FluyoTest
    ```
 
 3. Install dependencies:
