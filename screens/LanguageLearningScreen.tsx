@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -6,29 +6,43 @@ import {
   StyleSheet,
   FlatList,
 } from 'react-native';
-import { WHITE_COLOR, SELECTED_WORD_COLOR, BACKGROUND_COLOR } from '../constants/colors';
+import { WHITE_COLOR, PRIMARY_COLOR, SELECTED_WORD_COLOR, PINK_COLOR, BACKGROUND_COLOR } from '../constants/colors';
 
 interface LanguageLearningProps {
   englishSentence: string;
   germanSentence: string;
   wordOptions: string[];
+  onAnswer: (selectedWord: string) => void;
+  onSkip: () => void;
   translations: { [key: string]: string };
   correctAnswer: string;
+  isAnswerCorrect: boolean;
+  isAnswerModalVisible: boolean;
 }
 
 const LanguageLearningScreen: React.FC<LanguageLearningProps> = ({
   englishSentence,
   germanSentence,
   wordOptions,
+  onAnswer,
+  onSkip,
   translations,
-  correctAnswer
+  correctAnswer,
+  isAnswerCorrect,
+  isAnswerModalVisible,
 }) => {
   const [selectedWord, setSelectedWord] = useState<string | null>(null);
   const [displayedTranslations, setDisplayedTranslations] = useState<{ [key: string]: boolean }>({});
+  const [showCheckAnswer, setShowCheckAnswer] = useState(false);
 
+  useEffect(() => {
+    setSelectedWord(null);
+    setShowCheckAnswer(false);
+  }, [germanSentence]);
 
   const handleWordSelect = (word: string) => {
     setSelectedWord(word);
+    setShowCheckAnswer(true);
   };
 
   const toggleTranslation = (word: string) => {
@@ -62,6 +76,7 @@ const LanguageLearningScreen: React.FC<LanguageLearningProps> = ({
             {selectedWord ? (
               <View style={[
                 styles.selectedWordContainer,
+                isAnswerModalVisible ? (isAnswerCorrect ? { backgroundColor: PRIMARY_COLOR } : { backgroundColor: PINK_COLOR }) : null
               ]}>
                 <Text style={styles.selectedWordText}>{selectedWord}</Text>
               </View>
@@ -79,7 +94,8 @@ const LanguageLearningScreen: React.FC<LanguageLearningProps> = ({
           {displayedTranslations[word] ? (
             <Text style={styles.translationText}>{translations[word]}</Text>
           ) : (
-            null)}
+            <Text>{''}</Text>
+          )}
           <Text style={styles.germanWord}>{word}</Text>
         </TouchableOpacity>
       );
@@ -105,10 +121,15 @@ const LanguageLearningScreen: React.FC<LanguageLearningProps> = ({
     return <Text style={styles.sentence}>{renderedWords}</Text>;
   };
 
+  const handleCheckAnswer = () => {
+    if (selectedWord) {
+      onAnswer(selectedWord);
+    }
+  };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Fill in the Word</Text>
+      <Text style={styles.title}>Fill in the missing word</Text>
       <View style={styles.sentenceContainer}>
         {renderEnglishSentence()}</View>
       <View style={styles.sentenceContainer}>{renderGermanSentence()}</View>
@@ -119,6 +140,15 @@ const LanguageLearningScreen: React.FC<LanguageLearningProps> = ({
         numColumns={2}
         contentContainerStyle={styles.wordOptionsContainer}
       />
+      {showCheckAnswer ? (
+        <TouchableOpacity style={styles.checkAnswerButton} onPress={handleCheckAnswer}>
+          <Text style={styles.checkAnswerButtonText}>Check Answer</Text>
+        </TouchableOpacity>
+      ) : (
+        <TouchableOpacity style={styles.skipButton} onPress={onSkip}>
+          <Text style={styles.skipButtonText}>Continue</Text>
+        </TouchableOpacity>
+      )}
     </View>
   );
 };
@@ -131,7 +161,7 @@ const styles = StyleSheet.create({
     marginTop: 22,
   },
   title: {
-    fontSize: 18,
+    fontSize: 16,
     marginBottom: 18,
     color: WHITE_COLOR,
   },
@@ -194,7 +224,30 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: WHITE_COLOR,
   },
+  checkAnswerButton: {
+    backgroundColor: PRIMARY_COLOR,
+    borderRadius: 26,
+    paddingVertical: 14,
+    paddingHorizontal: 90,
+    marginTop: 24,
+  },
+  checkAnswerButtonText: {
+    fontSize: 18,
+    color: WHITE_COLOR,
+    textAlign: 'center',
+  },
+  skipButton: {
+    backgroundColor: SELECTED_WORD_COLOR,
+    borderRadius: 26,
+    paddingVertical: 16,
+    paddingHorizontal: 90,
+    marginTop: 24,
+  },
+  skipButtonText: {
+    fontSize: 18,
+    color: WHITE_COLOR,
+    textAlign: 'center',
+  },
 });
-
 
 export default LanguageLearningScreen;
